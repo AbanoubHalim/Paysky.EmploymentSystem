@@ -30,6 +30,13 @@ namespace Paysky.EmploymentSystem
         {
 
             services.Configure<JWT>(Configuration.GetSection("JWT"));
+            services.AddCors(options =>
+            {
+                options.AddPolicy("EnableCors",
+                    builder => builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader());
+            });
 
             services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
 
