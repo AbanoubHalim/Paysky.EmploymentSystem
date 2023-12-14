@@ -1,7 +1,10 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Paysky.APIServices.Contract;
+using Paysky.Entities.Constants;
 using Paysky.Entities.Models.AppModels;
+using Paysky.Entities.Models.DataBase;
 
 namespace Paysky.EmploymentSystem.Controllers
 {
@@ -9,39 +12,35 @@ namespace Paysky.EmploymentSystem.Controllers
 	[ApiController]
 	public class VacancyController : ControllerBase
 	{
-        private readonly IAuthService _authService;
+        private readonly IVacancyService _vacancyService;
 
-        public VacancyController(IAuthService authService)
+        public VacancyController(IVacancyService vacancyService)
         {
-            _authService = authService;
+            _vacancyService = vacancyService;
         }
-        [HttpPost("register")]
-        public async Task<IActionResult> RegisterAsync([FromBody] RegisterModel model)
+        [HttpPost("create")]
+        [Authorize(Roles = AppConstants.Employer)]
+        public async Task<IActionResult> Create([FromBody] Vacancy model)
         {
+            var employerId = HttpContext.Items["UserId"] as string;
+            model.EmployeeId = employerId;
+
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var result = await _authService.Register(model);
-
-            if (!result.IsAuthenticated)
-                return BadRequest(result.Message);
+            var result = await _vacancyService.Create(model);
 
             return Ok(result);
         }
 
 
-        [HttpPost("login")]
-        public async Task<IActionResult> GetTokenAsync([FromBody] LoginRequest model)
+        [HttpPut("edit")]
+        [Authorize(Roles = AppConstants.Employer)]
+        public async Task EditVacancy(int vacancyId, VacancyDto vacancy)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
-            var result = await _authService.Login(model);
-
-            if (!result.IsAuthenticated)
-                return BadRequest(result.Message);
-
-            return Ok(result);
+           await _vacancyService.EditVacancy(vacancyId, vacancy);
         }
-    }
+
+		
+	}
 }

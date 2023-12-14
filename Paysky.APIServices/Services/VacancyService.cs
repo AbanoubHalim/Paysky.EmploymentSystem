@@ -1,15 +1,11 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
 using Paysky.APIServices.Contract;
-using Paysky.Entities.Constants;
 using Paysky.Entities.Helpers;
 using Paysky.Entities.Models.AppModels;
 using Paysky.Entities.Models.DataBase;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
+
 
 namespace Paysky.APIServices.Services
 {
