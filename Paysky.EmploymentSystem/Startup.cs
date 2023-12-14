@@ -1,11 +1,8 @@
+using Hangfire;
+using Hangfire.SqlServer;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Paysky.APIServices.Contract;
@@ -69,6 +66,21 @@ namespace Paysky.EmploymentSystem
                     };
                 });
 
+            services.AddHangfire(x =>
+            {
+                x.SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
+                .UseSimpleAssemblyNameTypeSerializer()
+                .UseRecommendedSerializerSettings()
+                .UseSqlServerStorage(Configuration.GetConnectionString("DefaultConnection")
+                , new SqlServerStorageOptions
+                {
+                    DisableGlobalLocks = true
+                }
+                )
+                .UseStorage(JobStorage.Current);
+            });
+
+            services.AddHangfireServer();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -86,6 +98,9 @@ namespace Paysky.EmploymentSystem
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "PaySky Task v1"));
             }
 
+            //archive vacancies
+            RecurringJob.AddOrUpdate<IVacancyService>("archive expired vacancies", a => a.ArchiveVacancy(), Cron.Daily(1));
+            
             app.UseHttpsRedirection();
 
             app.UseRouting();

@@ -22,9 +22,27 @@ namespace Paysky.APIServices.Services
             _context = context;
         }
 
-		public Task ArchiveVacancy(RegisterModel model)
+		public async Task ArchiveVacancy()
 		{
-			throw new NotImplementedException();
+			var expiredVacancies = await _context.Vacancy.Where(vac => vac.ExpiryDate < DateTime.UtcNow).ToListAsync();
+			var archVacancies = new List<ArchivingVacancy>();
+			foreach (var vacancy in expiredVacancies)
+			{
+				var archiveVac = new ArchivingVacancy()
+				{
+					ExpiryDate = vacancy.ExpiryDate,
+					JobDescription = vacancy.JobDescription,
+					JobTitle = vacancy.JobTitle,
+					MaxApplicant = vacancy.MaxApplicant,
+					NoOfApplied = vacancy.NoOfApplied,
+					PostedDate = vacancy.PostedDate,
+				};
+				archVacancies.Add(archiveVac);
+			}
+			_context.ArchivingVacancy.AddRange(archVacancies);
+			_context.Vacancy.RemoveRange(expiredVacancies);
+			_context.SaveChanges();
+			
 		}
 
 		public async Task<Vacancy> Create(Vacancy model)

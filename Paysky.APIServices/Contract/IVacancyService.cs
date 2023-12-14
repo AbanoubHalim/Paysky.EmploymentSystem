@@ -15,7 +15,7 @@ namespace Paysky.APIServices.Contract
 		Task Delete(int vacancyId);
 		Task<List<VacancyDto>> GetAllVacancies();
 		Task<VacancyDto> GetVacancy(int id);
-		Task ArchiveVacancy(RegisterModel model);
+		Task ArchiveVacancy();
 
 	}
 }
