@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32630.192
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Paysky.EmploymentSystem", "Paysky.EmploymentSystem\Paysky.EmploymentSystem.csproj", "{26472D47-8F4F-426B-AE0B-7CD37EF60F7C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Paysky.Entities", "Paysky.Entities\Paysky.Entities.csproj", "{90ADF2CA-BA63-4FF7-838D-9B41910A58DB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Paysky.APIServices", "Paysky.APIServices\Paysky.APIServices.csproj", "{B300FC0E-EE6F-458D-BC45-B916F296F8D0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{26472D47-8F4F-426B-AE0B-7CD37EF60F7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26472D47-8F4F-426B-AE0B-7CD37EF60F7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26472D47-8F4F-426B-AE0B-7CD37EF60F7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26472D47-8F4F-426B-AE0B-7CD37EF60F7C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90ADF2CA-BA63-4FF7-838D-9B41910A58DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90ADF2CA-BA63-4FF7-838D-9B41910A58DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90ADF2CA-BA63-4FF7-838D-9B41910A58DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90ADF2CA-BA63-4FF7-838D-9B41910A58DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B300FC0E-EE6F-458D-BC45-B916F296F8D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B300FC0E-EE6F-458D-BC45-B916F296F8D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B300FC0E-EE6F-458D-BC45-B916F296F8D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B300FC0E-EE6F-458D-BC45-B916F296F8D0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4CCA07FA-062F-41BE-9C55-732D6E036B44}
+	EndGlobalSection
+EndGlobal
