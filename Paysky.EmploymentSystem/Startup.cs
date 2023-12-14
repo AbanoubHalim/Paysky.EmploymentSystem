@@ -34,6 +34,8 @@ namespace Paysky.EmploymentSystem
             services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<IVacancyService, VacancyService>();
+            services.AddScoped<IApplicantService, ApplicantService>();
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
