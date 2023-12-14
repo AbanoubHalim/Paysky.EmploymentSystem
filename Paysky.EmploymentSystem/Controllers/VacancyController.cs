@@ -8,10 +8,10 @@ using Paysky.Entities.Models.DataBase;
 
 namespace Paysky.EmploymentSystem.Controllers
 {
-	[Route("api/[controller]")]
-	[ApiController]
-	public class VacancyController : ControllerBase
-	{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class VacancyController : ControllerBase
+    {
         private readonly IVacancyService _vacancyService;
 
         public VacancyController(IVacancyService vacancyService)
@@ -38,9 +38,31 @@ namespace Paysky.EmploymentSystem.Controllers
         [Authorize(Roles = AppConstants.Employer)]
         public async Task EditVacancy(int vacancyId, VacancyDto vacancy)
         {
-           await _vacancyService.EditVacancy(vacancyId, vacancy);
+            await _vacancyService.EditVacancy(vacancyId, vacancy);
         }
 
-		
-	}
+        [HttpDelete("remove")]
+        [Authorize(Roles = AppConstants.Employer)]
+        public async Task Remove(int vacancyId)
+        {
+            await _vacancyService.Delete(vacancyId);
+        }
+
+        [HttpGet("getAll")]
+        [Authorize(Roles = AppConstants.Applicant)]
+        [Authorize(Roles = AppConstants.Employer)]
+        public async Task<IActionResult> GetAllVacancies()
+        {
+            return Ok(await _vacancyService.GetAllVacancies());
+        }
+
+        [HttpGet("getVacancy")]
+        [Authorize(Roles = AppConstants.Applicant)]
+        [Authorize(Roles = AppConstants.Employer)]
+        public async Task<IActionResult> GetVacancy(int id)
+        {
+            return Ok(await _vacancyService.GetVacancy(id));
+        }
+
+    }
 }
